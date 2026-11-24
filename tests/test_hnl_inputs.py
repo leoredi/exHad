@@ -12,9 +12,10 @@ class HNLInputs(unittest.TestCase):
         pair = [next(r for r in rows if r[0] == name)
                 for name in ('2Pie', '2Piebar')]
         partials = [gamma*np.interp(1., r[2][:,0], r[2][:,1]) for r in pair]
-        # Independent evaluation of the source's rho-pole formula at 1 GeV.
-        np.testing.assert_allclose(partials, [7.441409825480385e-14]*2, rtol=2e-14)
-        self.assertAlmostEqual(sum(partials)/7.441409825480385e-14, 2.)
+        # One charge state of the source's rho-pole formula at 1 GeV; each conjugate row had held both (7.4414e-14 GeV).
+        # At the tau mass this gives BR(tau -> pi pi0 nu) = 24.3% (25.5% measured), as 1805.08567 does with its fit.
+        np.testing.assert_allclose(partials, [3.7207049127401925e-14]*2, rtol=2e-14)
+        self.assertAlmostEqual(sum(partials)/3.7207049127401925e-14, 2.)
 
     def test_strange_current_uses_the_supplied_daughter_masses(self):
         rows, _ = hnl_tables()
